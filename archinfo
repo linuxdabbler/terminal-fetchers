@@ -1,0 +1,79 @@
+#!/bin/bash
+
+
+user=$USER@$(hostname)
+OS="Arch Linux"
+Kernel="$(uname -r)"
+Uptime="$(uptime -p | sed 's/up //')"
+Packages="$(pacman -Q | wc -l)"
+Shell="$(basename "$SHELL")"
+CPU="$(lscpu | grep Model\ name | sed 's/name:\ //' | sed "s/([^)]*)/()/g" | sed 's/[)(]//g')" 
+GPU="$(glxinfo -B | grep Device: | sed "s/([^)]*)/()/g" | sed 's/[)(]//g')"
+RAM="$(free -h | awk '/^Mem:/ {print $3 "/" $2}')"
+
+### IF statement to differentiate between Desktop Environment and Window Manager
+
+if [ -z "${WM}" ]; then
+	if [ "${XDG_CURRENT_DESKTOP}" ]; then
+		envtype='DE'
+		WM="${XDG_CURRENT_DESKTOP}"
+	elif [ "${DESKTOP_SESSION}" ]; then
+		envtype='DE'
+		WM="${DESKTOP_SESSION}"
+	else
+		envtype='WM'
+		WM="$(tail -n 1 "${HOME}/.xinitrc" | cut -d ' ' -f 2)"
+	fi
+else
+	envtype='WM'
+
+fi
+
+## DEFINE COLORS
+bold="$(tput bold)"
+black="$(tput setaf 0)"
+red="$(tput setaf 1)"
+green="$(tput setaf 2)"
+yellow="$(tput setaf 3)"
+blue="$(tput setaf 4)"
+magenta="$(tput setaf 5)"
+cyan="$(tput setaf 6)"
+white="$(tput setaf 7)"
+reset="$(tput sgr0)"
+
+
+
+# Colors called in script
+lc="${reset}${bold}${cyan}"		# labels
+nc="${reset}${bold}${cyan}"		# user and hostname
+ic="${reset}${bold}${white}"	# info
+c0="${reset}${bold}${cyan}"		# first color
+c1="${reset}${cyan}"			# second color
+
+
+##  OUTPUT
+
+
+figlet -f smslant $USER
+
+
+
+echo ${c0}'                   -`                   '           ${nc}${user}${reset}
+echo ${c0}'                  .o+`                  '           ${lc}OS:${ic}${OS}${reset}
+echo ${c0}'                 `ooo/                  '           ${lc}${envtype}:${ic}${WM}${reset}
+echo ${c0}'                `+oooo:                 '           ${lc}Kernel:${ic}${Kernel}${reset} 
+echo ${c0}'               `+oooooo:                '           ${lc}Uptime:${ic}${Uptime}${reset}	 
+echo ${c0}'               -+oooooo+:               '           ${lc}Packages:${ic}${Packages}${reset}
+echo ${c0}'             `/:-:++oooo+:              '           ${lc}Shell:${ic}${Shell}${reset}
+echo ${c0}'            `/++++/+++++++:             '           ${lc}CPU:${ic}${CPU}${reset}
+echo ${c0}'           `/++++++++++++++:            '           ${lc}GPU:${ic}${GPU}${reset} 
+echo ${c0}'          `/+++ooooooooooooo/`          '           ${lc}RAM:${ic}${RAM}${reset} 
+echo ${c0}'         ./ooosssso++osssssso+`         ' 
+echo ${c0}'        .oossssso-````/ossssss+`        ' 
+echo ${c0}'       -osssssso.      :ssssssso.       ' 
+echo ${c0}'      :osssssss/        osssso+++.      ' 
+echo ${c0}'     /ossssssss/        +ssssooo/-      ' 
+echo ${c0}'   `/ossssso+/:-        -:/+osssso+-    ' 
+echo ${c0}'  `+sso+:-`                 `.-/+oso:   ' 
+echo ${c0}' `++:.                           `-/+/  ' 
+echo ${c0}' .`                                 `/  ' 
