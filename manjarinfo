@@ -1,0 +1,65 @@
+#!/bin/bash
+
+
+user=$USER@$(hostname)
+OS="Manjaro Linux"
+Kernel="$(uname -r)"
+Uptime="$(uptime -p | sed 's/up //')"
+Packages="$(pacman -Q | wc -l)"
+Shell="$(basename "$SHELL")"
+CPU="$(lscpu | grep Model\ name | sed 's/name:\ //' | sed "s/([^)]*)/()/g" | sed 's/[)(]//g')" 
+GPU="$(glxinfo -B | grep Device: | sed "s/([^)]*)/()/g" | sed 's/[)(]//g')"
+RAM="$(free -h | awk '/^Mem:/ {print $3 "/" $2}')"
+
+### IF statement to differentiate between Desktop Environment and Window Manager
+
+if [ -z "${WM}" ]; then
+	if [ "${XDG_CURRENT_DESKTOP}" ]; then
+		envtype='DE'
+		WM="${XDG_CURRENT_DESKTOP}"
+	elif [ "${DESKTOP_SESSION}" ]; then
+		envtype='DE'
+		WM="${DESKTOP_SESSION}"
+	else
+		envtype='WM'
+		WM="$(tail -n 1 "${HOME}/.xinitrc" | cut -d ' ' -f 2)"
+	fi
+else
+	envtype='WM'
+
+fi
+
+## DEFINE COLORS
+bold="$(tput bold)"
+black="$(tput setaf 0)"
+red="$(tput setaf 1)"
+green="$(tput setaf 2)"
+yellow="$(tput setaf 3)"
+blue="$(tput setaf 4)"
+magenta="$(tput setaf 5)"
+cyan="$(tput setaf 6)"
+white="$(tput setaf 7)"
+reset="$(tput sgr0)"
+
+
+
+# Colors called in script
+lc="${reset}${bold}${cyan}"		# labels
+nc="${reset}${bold}${cyan}"		# user and hostname
+ic="${reset}${bold}${white}"	# info
+c0="${reset}${bold}${cyan}"		# first color
+c1="${reset}${cyan}"			# second color
+
+
+
+
+echo ${c0}'   __  ___   _____  ____  '			${nc}$user${reset}
+echo ${c0}'  /  |/  /_ / / _ \/ __ \ '			${lc}$OS: ${ic}$OS${reset}
+echo ${c0}' / /|_/ / // / , _/ /_/ / '			${lc}${envtype}:${ic}$WM${reset}
+echo ${c0}'/_/  /_/\___/_/|_|\____/  ' 			${lc}Kernel:${ic}${Kernel}${reset}
+echo '		  	'			${lc}Uptime:${ic}${Uptime}${reset}
+echo '			  '			${lc}Packages:${ic}${Packages}${reset}
+echo '			  '			${lc}Shell:${ic}${Shell}${reset}
+echo '			  '			${lc}CPU:${ic}${CPU}${reset}
+echo '			  '			${lc}GPU:${ic}${GPU}${reset}
+echo '			  '			${lc}RAM:${ic}${RAM}${reset}
