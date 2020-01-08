@@ -57,7 +57,7 @@ echo ${c0}'   __  ___   _____  ____  '			${nc}$user${reset}
 echo ${c0}'  /  |/  /_ / / _ \/ __ \ '			${lc}$OS: ${ic}$OS${reset}
 echo ${c0}' / /|_/ / // / , _/ /_/ / '			${lc}${envtype}:${ic}$WM${reset}
 echo ${c0}'/_/  /_/\___/_/|_|\____/  ' 			${lc}Kernel:${ic}${Kernel}${reset}
-echo '		  	'			${lc}Uptime:${ic}${Uptime}${reset}
+echo '		  	  '			${lc}Uptime:${ic}${Uptime}${reset}
 echo '			  '			${lc}Packages:${ic}${Packages}${reset}
 echo '			  '			${lc}Shell:${ic}${Shell}${reset}
 echo '			  '			${lc}CPU:${ic}${CPU}${reset}
