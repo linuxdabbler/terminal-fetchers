@@ -1,0 +1,32 @@
+#!/bin/sh
+
+user=$USER@
+OS="Debian $(cat /etc/debian_version)"
+Desktop="${XDG_CURRENT_DESKTOP}"
+Kernel="$(uname -sr)"
+Uptime="$(uptime -p | sed 's/up //')"
+Packages="$(dpkg -l | grep -c ^i)"
+Shell="$(basename "$SHELL")"
+CPU="$(lscpu | grep Model\ name | sed 's/name:\ //' | sed 's/Model\ //' | sed "s/([^)]*)/()/g" | sed 's/[)(]//g')" 
+GPU="$(glxinfo -B | grep Device: | sed "s/([^)]*)/()/g" | sed 's/[)(]//g')"
+RAM="$(free -h | awk '/^Mem:/ {print $3 "/" $2}')"
+
+
+echo '          _,met$$$$$gg.             ___      __   _             __        ____                 '
+echo '       ,g$$$$$$$$$$$$$$$P.         / _ \___ / /  (_)__ ____    / /  __ __/ / /__ ___ __ _____  '
+echo '     ,g$$P""       """Y$$.".      / // / -_) _ \/ / _ `/ _ \  / _ \/ // / / (_-</ -_) // / -_) '     			 
+echo '    ,$$P"              `$$$."    /____/\__/_.__/_/\_,_/_//_/ /_.__/\_,_/_/_/___/\__/\_, /\__/  '    
+echo '   ,$$P       ,ggs.     `$$b:            			 	           /___/       '
+echo '  `d$$"     ,$P""   .    $$$   '  $user$(hostname) '			' Kernel:  $Kernel           
+echo '   $$P      d$"     ,    $$P   '  Desktop:  $Desktop '				' Uptime:  $Uptime          
+echo '   $$:      $$.   -    ,d$$"   '  Packages:  $Packages'				' Shell:   $Shell			            
+echo '   $$\;      Y$b._   _,d$P     '  CPU: $CPU		                 
+echo '   Y$$.    `.`"Y$$$$P""        '	GPU: $GPU		        			 	                       
+echo '   `$$b      "-.__             '  RAM: $RAM
+echo '    `Y$$                       '
+echo '     `Y$$.                     '
+echo '       `$$b.                   '
+echo '         `Y$$b.                '
+echo '            `"Y$b._            '
+echo '                `""""          '
+
