@@ -2,7 +2,7 @@
 
 user=$USER@
 OS="$(lsb_release -sirc)"
-Desktop="${XDG_CURRENT_DESKTOP}"
+#Desktop="${XDG_CURRENT_DESKTOP}"
 Kernel="$(uname -sr)"
 Uptime="$(uptime -p | sed 's/up //')"
 Packages="$(dpkg -l | grep -c ^i)"
@@ -11,10 +11,26 @@ CPU="$(lscpu | grep Model\ name | sed 's/name:\ //' | sed "s/([^)]*)/()/g" | sed
 GPU="$(glxinfo -B | grep Device: | sed "s/([^)]*)/()/g" | sed 's/[)(]//g')"
 RAM="$(free -h | awk '/^Mem:/ {print $3 "/" $2}')"
 
+if [ -z "${WM}" ]; then
+	if [ "${XDG_CURRENT_DESKTOP}" ]; then
+		envtype='Desktop'
+		WM="${XDG_CURRENT_DESKTOP}"
+	elif [ "${DESKTOP_SESSION}" ]; then
+		envtype='Desktop'
+		WM="${DESKTOP_SESSION}"
+	else
+		envtype='WM'
+		WM="$(tail -n 1 "${HOME}/.xinitrc" | cut -d ' ' -f 2)"
+	fi
+else
+	envtype='WM'
+
+fi
+
 
 echo '          _,met$$$$$gg.        '            $user$(hostname)
 echo '       ,g$$$$$$$$$$$$$$$P.     '            OS: $OS
-echo '     ,g$$P""       """Y$$.".   '            Desktop: $Desktop			 
+echo '     ,g$$P""       """Y$$.".   '            $envtype: $WM		 
 echo '    ,$$P"              `$$$."  '            Kernel: $Kernel
 echo '   ,$$P       ,ggs.     `$$b:  '            Uptime: $Uptime
 echo '  `d$$"     ,$P""   .    $$$   '            Packages: $Packages
