@@ -14,7 +14,7 @@ clear ; clear
 
 # Universal variables
 user="${USER}\e[33m@"
-Desktop="${XDG_CURRENT_DESKTOP}"
+#Desktop="${XDG_CURRENT_DESKTOP}"
 Kernel="$(uname -sr)"
 Packages="$(dpkg -l | grep -c ^i)"
 Uptime="$(uptime -p | sed 's/up //')"
@@ -24,6 +24,22 @@ GPU="$(glxinfo -B | grep Device: | sed "s/([^)]*)/()/g" | sed 's/[)(]//g')"
 RAM="$(free -h | awk '/^Mem:/ {print $3 " / " $2}')"
 OS1="$(lsb_release -si)"
 OS="$(lsb_release -sirc)"
+
+if [ -z "${WM}" ]; then
+	if [ "${XDG_CURRENT_DESKTOP}" ]; then
+		envtype='Desktop'
+		WM="${XDG_CURRENT_DESKTOP}"
+	elif [ "${DESKTOP_SESSION}" ]; then
+		envtype='Desktop'
+		WM="${DESKTOP_SESSION}"
+	else
+		envtype='WM'
+		WM="$(tail -n 1 "${HOME}/.xinitrc" | cut -d ' ' -f 2)"
+	fi
+else
+	envtype='WM'
+
+fi
 
 # colors
  c1="\e[31m" # Red
@@ -67,7 +83,7 @@ echo ""
 echo -e "${c2}                                      "
 echo -e "${c2} MMMMMMMMMMMMMMMMMMMMMMMMMmds+.       "     ${c2}${user}${c7}$(hostname)
 echo -e "${c2} MMm----::-://////////////oymNMd+\`    "     ${c2}OS: ${c7}$OS
-echo -e "${c2} MMd      ${c7}/++                ${c2}-sNMd:   "     ${c2}Desktop: ${c7}$Desktop
+echo -e "${c2} MMd      ${c7}/++                ${c2}-sNMd:   "     ${c2}$envtype: ${c7}$WM
 echo -e "${c2} MMNso/\`  ${c7}dMM    \`.::-. .-::.\` ${c2}.hMN:  "     ${c2}Kernel: ${c7}$Kernel
 echo -e "${c2} ddddMMh  ${c7}dMM   :hNMNMNhNMNMNh: ${c2}\`NMm  "     ${c2}Packages: ${c7}$Packages
 echo -e "${c2}     NMm  ${c7}dMM  .NMN/-+MMM+-/NMN\` ${c2}dMM  "     ${c2}Shell: ${c7}$Shell
