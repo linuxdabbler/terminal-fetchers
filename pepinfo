@@ -14,7 +14,7 @@ clear ; clear
 
 # Universal variables
 user="${USER}\e[33m@"
-#Desktop="${XDG_CURRENT_DESKTOP}"
+Desktop="${XDG_CURRENT_DESKTOP}"
 Kernel="$(uname -sr)"
 Packages="$(dpkg -l | grep -c ^i)"
 Uptime="$(uptime -p | sed 's/up //')"
@@ -25,22 +25,21 @@ RAM="$(free -h | awk '/^Mem:/ {print $3 " / " $2}')"
 OS1="$(lsb_release -si)"
 OS="$(lsb_release -sirc)"
 
-if [ -z "${WM}" ]; then
-	if [ "${XDG_CURRENT_DESKTOP}" ]; then
-		envtype='Desktop'
-		WM="${XDG_CURRENT_DESKTOP}"
-	elif [ "${DESKTOP_SESSION}" ]; then
-		envtype='Desktop'
-		WM="${DESKTOP_SESSION}"
-	else
-		envtype='WM'
-		WM="$(tail -n 1 "${HOME}/.xinitrc" | cut -d ' ' -f 2)"
-	fi
-else
-	envtype='WM'
-
-fi
-
+#if [ -z "${WM}" ]; then
+#	if [ "${XDG_CURRENT_DESKTOP}" ]; then
+#		envtype='Desktop'
+#		WM="${XDG_CURRENT_DESKTOP}"
+#	elif [ "${DESKTOP_SESSION}" ]; then
+#		envtype='Desktop'
+#		WM="${DESKTOP_SESSION}"
+#	else
+#		envtype='WM'
+#		WM="$(tail -n 1 "${HOME}/.xinitrc" | cut -d ' ' -f 2)"
+#	fi
+#else
+#	envtype='WM'
+#
+#fi
 
 # colors
  c1="\e[31m" # Red
@@ -84,7 +83,7 @@ msg()
 echo ""
 echo -e "${c1}             8ZZZZZZ${c7}MMMMM              "     ${c1}${user}${c7}$(hostname)
 echo -e "${c1}          .ZZZZZZZZZ${c7}MMMMMMM.           "     ${c1}OS: ${c7}$OS
-echo -e "${c7}        MM${c1}ZZZZZZZZZ${c7}MMMMMMM${c1}ZZZZ         "     ${c1}$envtpye: ${c7}$WM
+echo -e "${c7}        MM${c1}ZZZZZZZZZ${c7}MMMMMMM${c1}ZZZZ         "     ${c1}Desktop: ${c7}$Desktop
 echo -e "${c7}      MMMMM${c1}ZZZZZZZZ${c7}MMMMM${c1}ZZZZZZZM       "     ${c1}Kernel: ${c7}$Kernel
 echo -e "${c7}     MMMMMMM${c1}ZZZZZZZ${c7}MMMM${c1}ZZZZZZZZZ.      "     ${c1}Packages: ${c7}$Packages
 echo -e "${c7}    MMMMMMMMM${c1}ZZZZZZ${c7}MMM${c1}ZZZZZZZZZZZI     "     ${c1}Shell: ${c7}$Shell
