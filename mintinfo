@@ -78,22 +78,21 @@ msg()
  echo "$(tput bold; tput setaf 2)[+] ${*}$(tput sgr0)"
 }
 
-
 echo ""
-echo -e "${c2}                                      "
-echo -e "${c2} MMMMMMMMMMMMMMMMMMMMMMMMMmds+.       "     ${c2}${user}${c7}$(hostname)
-echo -e "${c2} MMm----::-://////////////oymNMd+\`    "     ${c2}OS: ${c7}$OS
-echo -e "${c2} MMd      ${c7}/++                ${c2}-sNMd:   "     ${c2}$envtype: ${c7}$WM
-echo -e "${c2} MMNso/\`  ${c7}dMM    \`.::-. .-::.\` ${c2}.hMN:  "     ${c2}Kernel: ${c7}$Kernel
-echo -e "${c2} ddddMMh  ${c7}dMM   :hNMNMNhNMNMNh: ${c2}\`NMm  "     ${c2}Packages: ${c7}$Packages
-echo -e "${c2}     NMm  ${c7}dMM  .NMN/-+MMM+-/NMN\` ${c2}dMM  "     ${c2}Shell: ${c7}$Shell
-echo -e "${c2}     NMm  ${c7}dMM  -MMm  \`MMM   dMM. ${c2}dMM  "     ${c2}CPU: ${c7}$CPU
-echo -e "${c2}     NMm  ${c7}dMM  -MMm  \`MMM   dMM. ${c2}dMM  "     ${c2}GPU: ${c7}$GPU
-echo -e "${c2}     NMm  ${c7}dMM  .mmd  \`mmm   yMM. ${c2}dMM  "      ${c2}RAM: ${c7}$RAM
-echo -e "${c2}     NMm  ${c7}dMM\`  ..\`   ...   ydm. ${c2}dMM  "
-echo -e "${c2}     hMM- ${c7}+MMd/-------...-:sdds  ${c2}dMM  "
-echo -e "${c2}     -NMm- ${c7}:hNMNNNmdddddddddy/\`  ${c2}dMM  "
-echo -e "${c2}      -dMNs-${c7}\`\`-::::-------.\`\`    ${c2}dMM  "
+echo -e "${c2}                                               __   _                 __  ____      __    "
+echo -e "${c2} MMMMMMMMMMMMMMMMMMMMMMMMMmds+.               / /  (_)__  __ ____ __ /  |/  (_)__  / /    "     
+echo -e "${c2} MMm----::-://////////////oymNMd+\`           / /__/ / _ \/ // /\ \ // /|_/ / / _ \/ __/   "     
+echo -e "${c2} MMd      ${c7}/++                ${c2}-sNMd:         /____/_/_//_/\_,_//_\_\/_/  /_/_/_//_/\__/    "     
+echo -e "${c2} MMNso/\`  ${c7}dMM    \`.::-. .-::.\` ${c2}.hMN:                                                   "     
+echo -e "${c2} ddddMMh  ${c7}dMM   :hNMNMNhNMNMNh: ${c2}\`NMm  "         ${c2}${user}${c7}$(hostname)
+echo -e "${c2}     NMm  ${c7}dMM  .NMN/-+MMM+-/NMN\` ${c2}dMM  "         ${c2}OS: ${c7}$OS
+echo -e "${c2}     NMm  ${c7}dMM  -MMm  \`MMM   dMM. ${c2}dMM  "         ${c2}$envtype: ${c7}$WM
+echo -e "${c2}     NMm  ${c7}dMM  -MMm  \`MMM   dMM. ${c2}dMM  "         ${c2}Kernel: ${c7}$Kernel
+echo -e "${c2}     NMm  ${c7}dMM  .mmd  \`mmm   yMM. ${c2}dMM  "         ${c2}Packages: ${c7}$Packages
+echo -e "${c2}     NMm  ${c7}dMM\`  ..\`   ...   ydm. ${c2}dMM  "        ${c2}Shell: ${c7}$Shell
+echo -e "${c2}     hMM- ${c7}+MMd/-------...-:sdds  ${c2}dMM  "          ${c2}CPU: ${c7}$CPU
+echo -e "${c2}     -NMm- ${c7}:hNMNNNmdddddddddy/\`  ${c2}dMM  "         ${c2}GPU: ${c7}$GPU
+echo -e "${c2}      -dMNs-${c7}\`\`-::::-------.\`\`    ${c2}dMM  "      ${c2}RAM: ${c7}$RAM
 echo -e "${c2}       \`/dMNmy+/:-------------:/yMMM  "
 echo -e "${c2}          ./ydNMMMMMMMMMMMMMMMMMMMMM  "
 echo -e "${c2}             \.MMMMMMMMMMMMMMMMMMM    "
