@@ -80,20 +80,20 @@ msg()
 }
 
 echo ""
-echo -e "${c1}                          ./+o+-      ${c7}"     ${c1}${user}${c7}$(hostname)
-echo -e "${c7}                  yyyyy- ${c1}-yyyyyy+     ${c7}"     ${c1}OS: ${c7}$OS
-echo -e "${c7}               ${c7}://+//////${c1}-yyyyyyo     ${c7}"     ${c1}$envtype: ${c7}$WM
-echo -e "${c3}           .++ ${c7}.:/++++++/-${c1}.+sss/\`     ${c7}"     ${c1}Kernel: ${c7}$Kernel
-echo -e "${c3}         .:++o:  ${c7}/++++++++/:--:/-     ${c7}"     ${c1}Packages: ${c7}$Packages
-echo -e "${c3}        o:+o+:++.${c7}\`..\`\`\`.-/oo+++++/    ${c7}"     ${c1}Shell: ${c7}$Shell
-echo -e "${c3}       .:+o:+o/.${c7}          \`+sssoo+/   ${c7}"     ${c1}CPU: ${c7}$CPU
-echo -e "${c7}  .++/+:${c3}+oo+o:\`${c7}             /sssooo.  ${c7}"     ${c1}GPU: ${c7}$GPU
-echo -e "${c7} /+++//+:${c3}\`oo+o${c7}               /::--:.  ${c7}"      ${c1}RAM: ${c7}$RAM
-echo -e "${c7} \+/+o+++${c3}\`o++o${c1}               ++////.  ${c7}"
-echo -e "${c7}  .++.o+${c3}++oo+:\`${c1}             /dddhhh.  ${c7}"
-echo -e "${c3}       .+.o+oo:.${c1}          \`oddhhhh+   ${c7}"
-echo -e "${c3}        \+.++o+o\`${c1}\`-\`\`\`\`.:ohdhhhhh+    ${c7}"
-echo -e "${c3}         \`:o+++ ${c1}\`ohhhhhhhhyo++os:     ${c7}"
+echo -e "${c1}                          ./+o+-      ${c7}                 __  ____                  __      "
+echo -e "${c7}                  yyyyy- ${c1}-yyyyyy+     ${c7}           / / / / /  __ _____  __ __/ /___ __"
+echo -e "${c7}               ${c7}://+//////${c1}-yyyyyyo     ${c7}     / /_/ / _ \/ // / _ \/ // / __/ // / "
+echo -e "${c3}           .++ ${c7}.:/++++++/-${c1}.+sss/\`     ${c7}    \____/_.__/\_,_/_//_/\_,_/\__/\_,_/  "
+echo -e "${c3}         .:++o:  ${c7}/++++++++/:--:/-     ${c7}"          
+echo -e "${c3}        o:+o+:++.${c7}\`..\`\`\`.-/oo+++++/    ${c7}"      ${c1}${user}${c7}$(hostname)
+echo -e "${c3}       .:+o:+o/.${c7}          \`+sssoo+/   ${c7}"         ${c1}OS: ${c7}$OS
+echo -e "${c7}  .++/+:${c3}+oo+o:\`${c7}             /sssooo.  ${c7}"    ${c1}$envtype: ${c7}$WM 
+echo -e "${c7} /+++//+:${c3}\`oo+o${c7}               /::--:.  ${c7}"    ${c1}Kernel: ${c7}$Kernel  
+echo -e "${c7} \+/+o+++${c3}\`o++o${c1}               ++////.  ${c7}"    ${c1}Packages: ${c7}$Packages
+echo -e "${c7}  .++.o+${c3}++oo+:\`${c1}             /dddhhh.  ${c7}"    ${c1}Shell: ${c7}$Shell
+echo -e "${c3}       .+.o+oo:.${c1}          \`oddhhhh+   ${c7}"         ${c1}CPU: ${c7}$CPU
+echo -e "${c3}        \+.++o+o\`${c1}\`-\`\`\`\`.:ohdhhhhh+    ${c7}"    ${c1}GPU: ${c7}$GPU
+echo -e "${c3}         \`:o+++ ${c1}\`ohhhhhhhhyo++os:     ${c7}"        ${c1}RAM: ${c7}$RAM
 echo -e "${c3}           .o:${c1}\`.syhhhhhhh/${c3}.oo++o\`     ${c7}"
 echo -e "${c1}               /osyyyyyyo${c3}++ooo+++/    ${c7}"
 echo -e "${c1}                   \`\`\`\`\` ${c3}+oo+++o\:    ${c7}"
