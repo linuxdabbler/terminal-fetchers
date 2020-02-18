@@ -29,51 +29,63 @@ else
 
 fi
 
-## DEFINE COLORS
-bold="$(tput bold)"
-black="$(tput setaf 0)"
-red="$(tput setaf 1)"
-green="$(tput setaf 2)"
-yellow="$(tput setaf 3)"
-blue="$(tput setaf 4)"
-magenta="$(tput setaf 5)"
-cyan="$(tput setaf 6)"
-white="$(tput setaf 7)"
-reset="$(tput sgr0)"
+
+
+# COLORS
+c1="\e[31m" # Red
+c2="\e[32m" # Light Green
+c3="\e[33m" # Yellow
+c4="\e[34m" # Calm Blue
+c5="\e[35m" # Violet
+c6="\e[36m" # Arch Blue
+c7="\e[37m" # White
+c8="\e[38m" # Sky Blue
+c9="\e[39m" # Light Grey
+c10="\e[40m" # Dark Grey
+c20="\e[0m" # Normal
+
+# An Error echo Wrapper
+err0r()
+{
+	echo >&2 "$(tput bold; tput setaf 1)[-] ERROR: ${*}$(tput sgr0)"
+	echo ""
+	exit 86
+}
+
+
+# A Warning echo wrapper
+warn ()
+{
+	echo >&2 "$(tput bold; tput setaf 3)[!] WARNING: ${*}$)tput sgr0)"
+	echo ""
+}
 
 
 
-# Colors called in script
-lc="${reset}${bold}${cyan}"		# labels
-nc="${reset}${bold}${cyan}"		# user and hostname
-ic="${reset}${bold}${white}"	# info
-c0="${reset}${bold}${cyan}"		# first color
-c1="${reset}${cyan}"			# second color
-
-
-##  OUTPUT
-
-
-figlet -f smslant $USER
+# A Message echo Wrapper
+msg ()
+{
+	echo "$(tput bold; tput setaf 2)[+] ${*}$(tput sgr0)"
+}
 
 
 
-echo ${c0}'                   -`                   '           ${nc}${user}${reset}
-echo ${c0}'                  .o+`                  '           ${lc}OS:${ic}${OS}${reset}
-echo ${c0}'                 `ooo/                  '           ${lc}${envtype}:${ic}${WM}${reset}
-echo ${c0}'                `+oooo:                 '           ${lc}Kernel:${ic}${Kernel}${reset} 
-echo ${c0}'               `+oooooo:                '           ${lc}Uptime:${ic}${Uptime}${reset}	 
-echo ${c0}'               -+oooooo+:               '           ${lc}Packages:${ic}${Packages}${reset}
-echo ${c0}'             `/:-:++oooo+:              '           ${lc}Shell:${ic}${Shell}${reset}
-echo ${c0}'            `/++++/+++++++:             '           ${lc}CPU:${ic}${CPU}${reset}
-echo ${c0}'           `/++++++++++++++:            '           ${lc}GPU:${ic}${GPU}${reset} 
-echo ${c0}'          `/+++ooooooooooooo/`          '           ${lc}RAM:${ic}${RAM}${reset} 
-echo ${c0}'         ./ooosssso++osssssso+`         ' 
-echo ${c0}'        .oossssso-````/ossssss+`        ' 
-echo ${c0}'       -osssssso.      :ssssssso.       ' 
-echo ${c0}'      :osssssss/        osssso+++.      ' 
-echo ${c0}'     /ossssssss/        +ssssooo/-      ' 
-echo ${c0}'   `/ossssso+/:-        -:/+osssso+-    ' 
-echo ${c0}'  `+sso+:-`                 `.-/+oso:   ' 
-echo ${c0}' `++:.                           `-/+/  ' 
-echo ${c0}' .`                                 `/  ' 
+echo ${c6}'                   -`                   '           ${c1}${user}
+echo ${c6}'                  .o+`                  '           ${c1}OS:${c20}${OS}
+echo ${c6}'                 `ooo/                  '           ${c1}${envtype}:${c20}${WM}
+echo ${c6}'                `+oooo:                 '           ${c1}Kernel:${c20}${Kernel} 
+echo ${c6}'               `+oooooo:                '           ${c1}Uptime:${c20}${Uptime}	 
+echo ${c6}'               -+oooooo+:               '           ${c1}Packages:${c20}${Packages}
+echo ${c6}'             `/:-:++oooo+:              '           ${c1}Shell:${c20}${Shell}
+echo ${c6}'            `/++++/+++++++:             '           ${c1}CPU:${c20}${CPU}
+echo ${c6}'           `/++++++++++++++:            '           ${c1}GPU:${c20}${GPU} 
+echo ${c6}'          `/+++ooooooooooooo/`          '           ${c1}RAM:${c3}${RAM} 
+echo ${c6}'         ./ooosssso++osssssso+`         ' 
+echo ${c6}'        .oossssso-````/ossssss+`        ' 
+echo ${c6}'       -osssssso.      :ssssssso.       ' 
+echo ${c6}'      :osssssss/        osssso+++.      ' 
+echo ${c6}'     /ossssssss/        +ssssooo/-      ' 
+echo ${c6}'   `/ossssso+/:-        -:/+osssso+-    ' 
+echo ${c6}'  `+sso+:-`                 `.-/+oso:   ' 
+echo ${c6}' `++:.                           `-/+/  ' 
+echo ${c6}' .`                                 `/  ' 
