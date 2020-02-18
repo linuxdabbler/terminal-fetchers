@@ -23,6 +23,8 @@ GPU="$(glxinfo -B | grep Device: | sed "s/([^)]*)/()/g" | sed 's/[)(]//g')"
 RAM="$(free -h | awk '/^Mem:/ {print $3 " / " $2}')"
 OS1="$(lsb_release -si)"
 OS="$(lsb_release -sirc)"
+Packages="$(pacman -Qs | wc -l)"
+
 
 if [ -z "${WM}" ]; then
 	if [ "${XDG_CURRENT_DESKTOP}" ]; then
@@ -53,18 +55,6 @@ fi
  c10="\e[30m" # Dark Grey
  c20="\e[0m" # Normal
 
-# Package count for Debian based systems
-Packages_dpkg(){
-         
-         Packages="$(dpkg -l | grep -c ^i)"
-}
-
-# Package count for Arch based systems
-Arch_Packages(){
-
-         Packages="$(pacman -Qs | wc -l)"
-
-}
 
 # An Error echo wrapper
 err0r()
@@ -91,15 +81,15 @@ msg()
 
 echo ""
 echo -e "${c6}                    _                     "
-echo -e "${c6}                  .o+\`                   "         ${user}${c7}$(hostname)  
-echo -e "${c6}                 \`ooo/                   "         OS: ${c7}$OS 
-echo -e "${c6}                \`+oooo:                  "         $envtype: ${c7}$WM   
-echo -e "${c6}               \`+oooooo:                 "         Kernel: ${c7}$Kernel
-echo -e "${c6}               \`+oooooo:                 "         Packages: ${c7}$Packages
-echo -e "${c6}               -+oooooo+:                 "        Shell: ${c7}$Shell 
-echo -e "${c6}             \`/:-:++oooo+:               "         CPU: ${c7}$CPU
-echo -e "${c6}            \`/++++/+++++++:              "         GPU: ${c7}$GPU
-echo -e "${c6}           \`/++++++++++++++:             "         RAM: ${c7}$RAM
+echo -e "${c6}                  .o+\`                   "          ${user}${c7}$(hostname)  
+echo -e "${c6}                 \`ooo/                   "          OS: ${c7}$OS 
+echo -e "${c6}                \`+oooo:                  "          $envtype: ${c7}$WM   
+echo -e "${c6}               \`+oooooo:                 "          Kernel: ${c7}$Kernel
+echo -e "${c6}               \`+oooooo:                 "          Packages: ${c7}$Packages
+echo -e "${c6}               -+oooooo+:                "         Shell: ${c7}$Shell 
+echo -e "${c6}             \`/:-:++oooo+:               "          CPU: ${c7}$CPU
+echo -e "${c6}            \`/++++/+++++++:              "          GPU: ${c7}$GPU
+echo -e "${c6}           \`/++++++++++++++:             "          RAM: ${c2}$RAM
 echo -e "${c6}          \`/+++ooooooooooooo/\`          "         
 echo -e "${c6}         ./ooosssso++osssssso+\`          "         
 echo -e "${c6}        .oossssso-\`\`\`\`/ossssss+\`     "     
