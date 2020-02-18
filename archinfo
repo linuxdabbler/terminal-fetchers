@@ -96,7 +96,7 @@ echo -e "${c6}                 \`ooo/                   "         OS: ${c7}$OS
 echo -e "${c6}                \`+oooo:                  "         $envtype: ${c7}$WM   
 echo -e "${c6}               \`+oooooo:                 "         Kernel: ${c7}$Kernel
 echo -e "${c6}               \`+oooooo:                 "         Packages: ${c7}$Packages
-echo -e "${c6}               -+oooooo+:                 "         Shell: ${c7}$Shell 
+echo -e "${c6}               -+oooooo+:                 "        Shell: ${c7}$Shell 
 echo -e "${c6}             \`/:-:++oooo+:               "         CPU: ${c7}$CPU
 echo -e "${c6}            \`/++++/+++++++:              "         GPU: ${c7}$GPU
 echo -e "${c6}           \`/++++++++++++++:             "         RAM: ${c7}$RAM
