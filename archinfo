@@ -1,24 +1,35 @@
-#!/bin/bash
+#!/usr/bin/env bash
+# vim: noai:ts=4:sw=4:expandtab
+# shellcheck source=/dev/null
+# shellcheck disable=2009
 
+###################################################################################
+# This script uses lsb_release, lscpu, and glxinfo. make sure they are installed. #
+###################################################################################
+#
+# START OF SCRIPT
+#
+#
+clear ; clear
 
-user=$USER@$(hostname)
-OS="Arch Linux"
-Kernel="$(uname -r)"
+# Universal variables
+user="${USER}\e[33m@"
+#Desktop="${XDG_CURRENT_DESKTOP}"
+Kernel="$(uname -sr)"
 Uptime="$(uptime -p | sed 's/up //')"
-Packages="$(pacman -Q | wc -l)"
 Shell="$(basename "$SHELL")"
-CPU="$(lscpu | grep Model\ name | sed 's/name:\ //' | sed "s/([^)]*)/()/g" | sed 's/[)(]//g')" 
+CPU="$(lscpu | grep Model\ name | sed 's/name:\ //' | sed "s/([^)]*)/()/g" | sed 's/[)(]//g')"
 GPU="$(glxinfo -B | grep Device: | sed "s/([^)]*)/()/g" | sed 's/[)(]//g')"
-RAM="$(free -h | awk '/^Mem:/ {print $3 "/" $2}')"
-
-### IF statement to differentiate between Desktop Environment and Window Manager
+RAM="$(free -h | awk '/^Mem:/ {print $3 " / " $2}')"
+OS1="$(lsb_release -si)"
+OS="$(lsb_release -sirc)"
 
 if [ -z "${WM}" ]; then
 	if [ "${XDG_CURRENT_DESKTOP}" ]; then
-		envtype='DE'
+		envtype='Desktop'
 		WM="${XDG_CURRENT_DESKTOP}"
 	elif [ "${DESKTOP_SESSION}" ]; then
-		envtype='DE'
+		envtype='Desktop'
 		WM="${DESKTOP_SESSION}"
 	else
 		envtype='WM'
@@ -29,63 +40,73 @@ else
 
 fi
 
+# colors
+ c1="\e[31m" # Red
+ c2="\e[32m" # Light Green
+ c3="\e[33m" # Yellow
+ c4="\e[34m"  # Calm Blue
+ c5="\e[35m" # Violet
+ c6="\e[36m" # Arch Blue
+ c7="\e[37m" # White
+ c8="\e[38m" # Sky Blue
+ c9="\e[39m" # Light Grey
+ c10="\e[30m" # Dark Grey
+ c20="\e[0m" # Normal
 
+# Package count for Debian based systems
+Packages_dpkg(){
+         
+         Packages="$(dpkg -l | grep -c ^i)"
+}
 
-# COLORS
-c1="\e[31m" # Red
-c2="\e[32m" # Light Green
-c3="\e[33m" # Yellow
-c4="\e[34m" # Calm Blue
-c5="\e[35m" # Violet
-c6="\e[36m" # Arch Blue
-c7="\e[37m" # White
-c8="\e[38m" # Sky Blue
-c9="\e[39m" # Light Grey
-c10="\e[40m" # Dark Grey
-c20="\e[0m" # Normal
+# Package count for Arch based systems
+Arch_Packages(){
 
-# An Error echo Wrapper
+         Packages="$(pacman -Qs | wc -l)"
+
+}
+
+# An Error echo wrapper
 err0r()
 {
-	echo >&2 "$(tput bold; tput setaf 1)[-] ERROR: ${*}$(tput sgr0)"
-	echo ""
-	exit 86
-}
 
+    echo >&2 "$(tput bold; tput setaf 1)[-] ERROR: ${*}$(tput sgr0)"
+    echo ""
+    exit 86
+}
 
 # A Warning echo wrapper
-warn ()
+warn()
 {
-	echo >&2 "$(tput bold; tput setaf 3)[!] WARNING: ${*}$)tput sgr0)"
-	echo ""
+ echo >&2 "$(tput bold; tput setaf 3)[!] WARNING: ${*}$(tput sgr0)"
+ echo ""
+}
+
+# A Message echo wrapper
+msg()
+{
+ echo "$(tput bold; tput setaf 2)[+] ${*}$(tput sgr0)"
 }
 
 
-
-# A Message echo Wrapper
-msg ()
-{
-	echo "$(tput bold; tput setaf 2)[+] ${*}$(tput sgr0)"
-}
-
-
-
-echo ${c6}'                   -`                   '           ${c1}${user}
-echo ${c6}'                  .o+`                  '           ${c1}OS:${c20}${OS}
-echo ${c6}'                 `ooo/                  '           ${c1}${envtype}:${c20}${WM}
-echo ${c6}'                `+oooo:                 '           ${c1}Kernel:${c20}${Kernel} 
-echo ${c6}'               `+oooooo:                '           ${c1}Uptime:${c20}${Uptime}	 
-echo ${c6}'               -+oooooo+:               '           ${c1}Packages:${c20}${Packages}
-echo ${c6}'             `/:-:++oooo+:              '           ${c1}Shell:${c20}${Shell}
-echo ${c6}'            `/++++/+++++++:             '           ${c1}CPU:${c20}${CPU}
-echo ${c6}'           `/++++++++++++++:            '           ${c1}GPU:${c20}${GPU} 
-echo ${c6}'          `/+++ooooooooooooo/`          '           ${c1}RAM:${c3}${RAM} 
-echo ${c6}'         ./ooosssso++osssssso+`         ' 
-echo ${c6}'        .oossssso-````/ossssss+`        ' 
-echo ${c6}'       -osssssso.      :ssssssso.       ' 
-echo ${c6}'      :osssssss/        osssso+++.      ' 
-echo ${c6}'     /ossssssss/        +ssssooo/-      ' 
-echo ${c6}'   `/ossssso+/:-        -:/+osssso+-    ' 
-echo ${c6}'  `+sso+:-`                 `.-/+oso:   ' 
-echo ${c6}' `++:.                           `-/+/  ' 
-echo ${c6}' .`                                 `/  ' 
+echo ""
+echo -e "${c6}                    _                     "
+echo -e "${c6}                  .o+\`                   "         ${user}${c7}$(hostname)  
+echo -e "${c6}                 \`ooo/                   "         OS: ${c7}$OS 
+echo -e "${c6}                \`+oooo:                  "         $envtype: ${c7}$WM   
+echo -e "${c6}               \`+oooooo:                 "         Kernel: ${c7}$Kernel
+echo -e "${c6}               \`+oooooo:                 "         Packages: ${c7}$Packages
+echo -e "${c6}               -+oooooo+:                 "         Shell: ${c7}$Shell 
+echo -e "${c6}             \`/:-:++oooo+:               "         CPU: ${c7}$CPU
+echo -e "${c6}            \`/++++/+++++++:              "         GPU: ${c7}$GPU
+echo -e "${c6}           \`/++++++++++++++:             "         RAM: ${c7}$RAM
+echo -e "${c6}          \`/+++ooooooooooooo/\`          "         
+echo -e "${c6}         ./ooosssso++osssssso+\`          "         
+echo -e "${c6}        .oossssso-\`\`\`\`/ossssss+\`     "     
+echo -e "${c6}       -osssssso.      :ssssssso.         "          
+echo -e "${c6}      :osssssss/        osssso+++.        "          
+echo -e "${c6}     /ossssssss/        +ssssooo/-        "
+echo -e "${c6}   \`/ossssso+/:-        -:/+osssso+-     "
+echo -e "${c6}  \`+sso+:-\`                 \`.-/+oso:  "
+echo -e "${c6} \`++:.                           \`-/+/  "
+echo -e "${c6} .\`                                 \`/ ${c20}"
