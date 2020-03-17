@@ -76,8 +76,8 @@ echo '     ,g$$P""       """Y$$.".      / // / -_) _ \/ / _ `/ _ \  / _ \/ // (_
 echo '    ,$$P"              `$$$."    /____/\__/_.__/_/\_,_/_//_/ /_.__/\_,_/___/\__/\__/_/       '    
 echo '   ,$$P       ,ggs.     `$$b:            			 	               '
 echo '  `d$$"     ,$P""   .    $$$   '  ${c1}$user${c20}$(hostname) '			' ${c1}Kernel:  ${c20}$Kernel           
-echo '   $$P      d$"     ,    $$P   '  ${c1}$envtype:  ${c20}$WM '				' ${c1}Uptime:  ${c20}$Uptime          
-echo '   $$:      $$.   -    ,d$$"   '  ${c1}Packages:  ${c20}$Packages'				' ${c1}Shell:   ${c20}$Shell			            
+echo '   $$P      d$"     ,    $$P   '  ${c1}$envtype:  ${c20}$WM '			' ${c1}Uptime:  ${c20}$Uptime          
+echo '   $$:      $$.   -    ,d$$"   '  ${c1}Packages:  ${c20}$Packages'			' ${c1}Shell:   ${c20}$Shell			            
 echo '   $$\;      Y$b._   _,d$P     '  ${c1}CPU: ${c20}$CPU		                 
 echo '   Y$$.    `.`"Y$$$$P""        '	${c1}GPU: ${c20}$GPU		        			 	                       
 echo '   `$$b      "-.__             '  ${c1}RAM: ${c20}$RAM
