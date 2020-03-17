@@ -10,6 +10,7 @@ Shell="$(basename "$SHELL")"
 CPU="$(lscpu | grep Model\ name | sed 's/name:\ //' | sed 's/Model\ //' | sed "s/([^)]*)/()/g" | sed 's/[)(]//g')" 
 GPU="$(glxinfo -B | grep Device: | sed "s/([^)]*)/()/g" | sed 's/[)(]//g')"
 RAM="$(free -h | awk '/^Mem:/ {print $3 "/" $2}')"
+IP="$(hostname -I | awk '{print $1}')"
 
 
 if [ -z "${WM}" ]; then
@@ -80,7 +81,7 @@ echo '   $$:      $$.   -    ,d$$"   '  ${c1}Packages:  ${c20}$Packages'				' ${
 echo '   $$\;      Y$b._   _,d$P     '  ${c1}CPU: ${c20}$CPU		                 
 echo '   Y$$.    `.`"Y$$$$P""        '	${c1}GPU: ${c20}$GPU		        			 	                       
 echo '   `$$b      "-.__             '  ${c1}RAM: ${c20}$RAM
-echo '    `Y$$                       '
+echo '    `Y$$                       '  ${c1}IP:  ${c20}$IP
 echo '     `Y$$.                     '
 echo '       `$$b.                   '
 echo '         `Y$$b.                '
