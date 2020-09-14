@@ -11,6 +11,9 @@ Go ahead and use it as you like.
 
 Dependencies
 
-figlet (optional)  Just comment out one line in archinfo and it will not use it. 
-mesa-utils
+It should not depend on anything you don't already have installed.
 
+maybe mesa-utils if you are using glxinfo to call your GPU model.
+
+
+NOTE:  Debian and Devuan fetchers have been updated recently, no so much on the others...
