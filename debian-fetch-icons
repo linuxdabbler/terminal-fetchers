@@ -1,5 +1,5 @@
 #!/bin/sh
-
+# depends on fontawesome
 user="${USER}@"
 hostname="${HOSTNAME:-${hostname:-$(hostname)}}"
 host="$(cat /sys/devices/virtual/dmi/id/product_name)"
