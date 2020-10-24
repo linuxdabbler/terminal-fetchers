@@ -1,0 +1,88 @@
+#!/bin/sh
+
+user="${USER}@"
+hostname="${HOSTNAME:-${hostname:-$(hostname)}}"
+host="$(cat /sys/devices/virtual/dmi/id/product_name)"
+OS="$(cat /etc/os-release | grep PRETTY_NAME | sed 's/PRETTY_NAME=//' | sed 's/"//g')"
+#Desktop="${XDG_CURRENT_DESKTOP}"
+Kernel="$(uname -sr | sed 's/Linux //')"
+Uptime="$(uptime -p | sed 's/up //')"
+Packages="$(dpkg -l | grep -c ^i)"
+Shell="$(basename "$SHELL")"
+RAM="$(free -h | grep Mem: | awk '{print $3 "/" $2}')"
+
+if [ -z "${WM}" ]; then
+	if [ "${XDG_CURRENT_DESKTOP}" ]; then
+		envtype='Desktop'
+		WM="${XDG_CURRENT_DESKTOP}"
+	elif [ "${DESKTOP_SESSION}" ]; then
+		envtype='Desktop'
+		WM="${DESKTOP_SESSION}"
+	else
+		envtype='WM'
+		WM="$(tail -n 1 "${HOME}/.xinitrc" | cut -d ' ' -f 2)"
+	fi
+else
+	envtype='WM'
+
+fi
+
+# COLORS
+c1="\e[31m" # Red
+c2="\e[32m" # Light Green
+c3="\e[33m" # Yellow
+c4="\e[34m" # Calm Blue
+c5="\e[35m" # Violet
+c6="\e[36m" # Arch Blue
+c7="\e[37m" # White
+c8="\e[38m" # Sky Blue
+c9="\e[39m" # Light Grey
+c10="\e[40m" # Dark Grey
+c20="\e[0m" # Normal
+
+# An Error echo Wrapper
+err0r()
+{
+	echo >&2 "$(tput bold; tput setaf 1)[-] ERROR: ${*}$(tput sgr0)"
+	echo ""
+	exit 86
+}
+
+
+# A Warning echo wrapper
+warn ()
+{
+	echo >&2 "$(tput bold; tput setaf 3)[!] WARNING: ${*}$)tput sgr0)"
+	echo ""
+}
+
+
+
+# A Message echo Wrapper
+msg ()
+{
+	echo "$(tput bold; tput setaf 2)[+] ${*}$(tput sgr0)"
+}
+
+
+
+echo ""
+echo "${c1}                          ./+o+-      ${c7}    __  ____                  __      "
+echo "${c7}                  yyyyy- ${c1}-yyyyyy+     ${c7}   / / / / /  __ _____  __ __/ /___ __"
+echo "${c7}               ${c7}://+//////${c1}-yyyyyyo     ${c7}  / /_/ / _ \/ // / _ \/ // / __/ // / "
+echo "${c3}           .++ ${c7}.:/++++++/-${c1}.+sss/\`     ${c7}  \____/_.__/\_,_/_//_/\_,_/\__/\_,_/  "
+echo "${c3}         .:++o:  ${c7}/++++++++/:--:/-     ${c7}"          --------------------------------------
+echo "${c3}        o:+o+:++.${c7}\`..\`\`\`.-/oo+++++/    ${c7}"      ${c1}${user}${c7}$(hostname)
+echo "${c3}       .:+o:+o/.${c7}          \`+sssoo+/   ${c7}"         ${c1}OS: ${c7}$OS
+echo "${c7}  .++/+:${c3}+oo+o:\`${c7}             /sssooo.  ${c7}"    ${c1}Host: ${c7}$host 
+echo "${c7} /+++//+:${c3}\`oo+o${c7}               /::--:.  ${c7}"    ${c1}Kernel: ${c7}$Kernel  
+echo "${c7} \+/+o+++${c3}\`o++o${c1}               ++////.  ${c7}"    ${c1}Uptime: ${c7}$Uptime
+echo "${c7}  .++.o+${c3}++oo+:\`${c1}             /dddhhh.  ${c7}"    ${c1}Packages: ${c7}$Packages
+echo "${c3}       .+.o+oo:.${c1}          \`oddhhhh+   ${c7}"         ${c1}RAM: ${c7}$RAM
+echo "${c3}        \+.++o+o\`${c1}\`-\`\`\`\`.:ohdhhhhh+    ${c7}"    
+echo "${c3}         \`:o+++ ${c1}\`ohhhhhhhhyo++os:     ${c7}"        
+echo "${c3}           .o:${c1}\`.syhhhhhhh/${c3}.oo++o\`     ${c7}"
+echo "${c1}               /osyyyyyyo${c3}++ooo+++/    ${c7}"
+echo "${c1}                   \`\`\`\`\` ${c3}+oo+++o\:    ${c7}"
+echo "${c3}                          \`oo++.      ${c20}"
+echo ""
